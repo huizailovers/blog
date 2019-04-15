@@ -21,5 +21,25 @@ obj.f() // 2
 
 看到上面的结果也就不奇怪了，obj.f() 是在obj的环境中执行的。所以this指向的是obj。f() 是在全局环境中执行的。this指向的是全局环境。
 
+下面代码是在真实的考验场景
 
+```js
+var person = {
+	age:18,
+    say:function(){
+      return this.age;
+    }
+}
+var say = person.say;
+console.log(person.say(20));
+console.log(person.say());
+console.log(say());
+console.log(person.say({age:20}));
+console.log(say.call(person));
+person.age +=1
+console.log(say.call(person));
+console.log(say.apply(person,[32]));
+```
+
+上面代码分别考察了this的指向问题，function.call()  ， function.apply() 的作用是更改this的指向。
 
