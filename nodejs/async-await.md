@@ -18,7 +18,7 @@
   asyncPrint('hello world', 5000);
 ```
 
-输出结果是111，222 ，hellowrold， 333
+输出结果是111，333 ，222， hellowrold，
 
 注意点：
 
@@ -34,6 +34,7 @@ async中使用try-catch 来捕获 promise.reject()的异常
   async function timeout(ms) {
     console.log(111)
     await new Promise((resolve) => {
+        console.log(333)
       setTimeout(resolve, ms);
     });
     console.log(222)
@@ -49,3 +50,6 @@ async中使用try-catch 来捕获 promise.reject()的异常
 
 
 
+输出结果是 111 ， 333,  helloworld , 222
+
+timeout 函数是局部同步的，也就是  111 ，333， 222 是局部同步的

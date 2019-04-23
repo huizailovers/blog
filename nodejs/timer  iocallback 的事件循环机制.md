@@ -3,7 +3,7 @@
 ```go
 func beginDealTaskQueue( eventloop EventLoop){
     while (!isEmpty(eventLoop)){
-        eventLoop.timeout = now();//当前时间戳
+        eventLoop.timeout = now();//当前时间戳 1111
         
         //执行定时任务
         runTimerTask(eventLoop);
@@ -58,5 +58,6 @@ func runIoTask(EventLoop eventLoop){
         handleIoEvent(eventLoop.finshIoqueue.shift());
     }
 }
+
 ```
 
