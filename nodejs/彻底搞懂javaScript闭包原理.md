@@ -12,7 +12,7 @@ var fun = function(){
     return count +=1;
   }
 }
-var fn = fun();
+var fn = fn();
 console.log(fn());
 console.log(fn());
 ```
