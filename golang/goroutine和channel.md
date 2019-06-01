@@ -99,6 +99,33 @@ intChan <-1
 num := <- intChan
 
 //注意：没有其他go协程的时候，取或者放 超过指定的容量会报错 deadlock 
+
+//第一种没有缓存情况的测试
+func TestChannel(t *testing.T){
+
+	var intChan chan int
+	intChan = make (chan int)
+
+
+
+	go func(){
+		intChan <- 2
+		fmt.Println("in")
+		intChan <- 3
+		fmt.Println("not in ")
+	}()
+
+	result := <- intChan
+
+	time.Sleep(time.Second * 3)
+
+	result1 := <- intChan
+
+	t.Log(result)
+	t.Log(result1)
+
+}
+
 ```
 
 channel的关闭和遍历
@@ -106,6 +133,8 @@ channel的关闭和遍历
 channel 关闭后，就不能往chnnel中写数据了，但是仍然可以从channel中读取数据
 
 遍历的时候如果channel没有关闭，deaklock，channel关闭了，则能正常遍历数据。
+
+close的另一个作用，是向所有的通道接收者广播，所有通话收到关播，处理业务
 
 ```go
 func dataProducer(ch chan int, wg *sync.WaitGroup) {
@@ -123,7 +152,7 @@ func dataProducer(ch chan int, wg *sync.WaitGroup) {
 func dataReceiver(ch chan int, wg *sync.WaitGroup) {
 	go func() {
 		for {
-			if data, ok := <-ch; ok {
+			if data, ok := <-ch; ok { //两个channel的接收者会在channel关闭时，立刻从阻塞的状态中返回，ok更改为false。一般用作退出的信号。
 				fmt.Println(data)
 			} else {
 				break

@@ -31,14 +31,14 @@ var person = {
     }
 }
 var say = person.say;
-console.log(person.say(20));
-console.log(person.say());
-console.log(say());
-console.log(person.say({age:20}));
-console.log(say.call(person));
+console.log(person.say(20));//18
+console.log(person.say());//18
+console.log(say());//undefined
+console.log(person.say({age:20})); //18
+console.log(say.call(person));//18
 person.age +=1
-console.log(say.call(person));
-console.log(say.apply(person,[32]));
+console.log(say.call(person));//19
+console.log(say.apply(person,[32]));//19
 ```
 
 上面代码分别考察了this的指向问题，function.call()  ， function.apply() 的作用是更改this的指向。
